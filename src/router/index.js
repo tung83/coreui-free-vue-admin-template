@@ -6,6 +6,7 @@ const DefaultContainer = () => import('@/containers/DefaultContainer')
 
 // Views
 const Dashboard = () => import('@/views/Dashboard')
+const Students = () => import('@/views/students/Students')
 
 const Colors = () => import('@/views/theme/Colors')
 const Typography = () => import('@/views/theme/Typography')
@@ -95,6 +96,11 @@ export default new Router({
               component: Typography
             }
           ]
+        },
+        {
+          path: 'students',
+          name: 'Students',
+          component: Students
         },
         {
           path: 'charts',
