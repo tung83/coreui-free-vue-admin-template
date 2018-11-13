@@ -36,6 +36,11 @@
               <strong>{{item.value}}</strong>
             </div>
           </b-table>
+           <b-table striped hover :items="rooms" :fields="fields">
+            <template slot="actions" >
+              <b-btn size="sm" >Join</b-btn>
+            </template>
+          </b-table>
         </b-card>
       </b-col>
     </b-row>
@@ -44,6 +49,7 @@
 
 <script>
 import { Callout } from '@coreui/vue'
+import axios from 'axios'
 
 export default {
   name: 'students',
@@ -52,6 +58,12 @@ export default {
   },
   data: function () {
     return {
+      rooms: [],
+      fields: {
+        room_name: { label: 'Room Name', sortable: true, 'class': 'text-center' },
+        created_date: { label: 'Created Date', sortable: true },
+        actions: { label: 'Action', 'class': 'text-center' }
+      },
       selected: 'Month',
       tableItems: [
         {
@@ -127,6 +139,15 @@ export default {
         }
       }
     }
+  },
+  created () {
+    axios.get(`http://localhost:3000/api/room`)
+    .then(response => {
+      this.rooms = response.data
+    })
+    .catch(e => {
+      this.errors.push(e)
+    })
   },
   methods: {
     variant (value) {
